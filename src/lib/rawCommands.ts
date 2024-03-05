@@ -112,7 +112,7 @@ export async function runGptPage(b: IHookEvent) {
   const currentBlock = await logseq.Editor.getBlock(b.uuid);
 
   if (pageContents.length === 0) {
-    logseq.App.showMsg("Empty Content", "warning");
+    logseq.UI.showMsg("Empty Content", "warning");
     console.warn("Blank page");
     return;
   }

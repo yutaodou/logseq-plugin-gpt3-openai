@@ -1,5 +1,5 @@
 {
-  "name": "logseq-plugin-gpt3-openai",
+  "name": "logseq-plugin-gemini",
   "author": "Brian Sunter",
   "private": true,
   "version": "1.13.2",
@@ -22,12 +22,14 @@
     "@vitejs/plugin-react": "^3.0.1",
     "autoprefixer": "^10.4.13",
     "conventional-changelog-conventionalcommits": "^5.0.0",
+    "prettier": "^3.2.5",
     "semantic-release": "^19.0.2",
     "typescript": "^4.5.4",
     "vite": "^4.0.4",
     "vite-plugin-logseq": "^1.1.2"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.2.1",
     "@headlessui/react": "^1.7.7",
     "@heroicons/react": "^2.0.13",
     "@logseq/libs": "^0.0.10",

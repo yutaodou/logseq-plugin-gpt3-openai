@@ -1,14 +1,14 @@
-import "./ui/style.css";
 import "@logseq/libs";
-import { openAIWithStream } from "./lib/openai";
+import { BlockEntity } from "@logseq/libs/dist/LSPlugin.user";
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-import { Command, LogseqAI } from "./ui/LogseqAI";
-import { loadUserCommands, loadBuiltInCommands } from "./lib/prompts";
-import { getOpenaiSettings, settingsSchema } from "./lib/settings";
-import { runDalleBlock, runGptBlock, runGptPage, runWhisper } from "./lib/rawCommands";
-import { BlockEntity } from "@logseq/libs/dist/LSPlugin.user";
 import { useImmer } from 'use-immer';
+import { geminiWithStream } from "./lib/gemini";
+import { loadBuiltInCommands, loadUserCommands } from "./lib/prompts";
+import { runDalleBlock, runGptBlock, runGptPage, runWhisper } from "./lib/rawCommands";
+import { getOpenaiSettings, settingsSchema } from "./lib/settings";
+import { Command, LogseqAI } from "./ui/LogseqAI";
+import "./ui/style.css";
 
 logseq.useSettingsSchema(settingsSchema);
 
@@ -94,42 +94,42 @@ const LogseqApp = () => {
 
   React.useEffect(() => {
     if (logseq.settings!["popupShortcut"]) {
-    logseq.App.registerCommandShortcut(
-      {
-        binding: logseq.settings!["popupShortcut"],
-      },
-      async () => {
-        const activeText = await logseq.Editor.getEditingCursorPosition();
-        const currentBlock = await logseq.Editor.getCurrentBlock();
-        const currentPage = await logseq.Editor.getCurrentPage();
-        const selectedBlocks = await logseq.Editor.getSelectedBlocks();
-        if (selectedBlocks && selectedBlocks.length > 0) {
-          updateAppState(draft => {
-            draft.selection = {
-              type: "multipleBlocksSelected",
-              blocks: selectedBlocks,
-            };
-          });
-        } else if (!activeText && !currentPage) {
-          logseq.App.showMsg("Put cursor in block or navigate to specific page to use keyboard shortcut", "warning");
-          return;
-        } else if (activeText && currentBlock) {
-          updateAppState(draft => {
-            draft.selection = {
-              type: "singleBlockSelected",
-              block: currentBlock,
-            };  
-          });
-        } else {
-          updateAppState(draft => {
-            draft.selection = {
-              type: "noBlockSelected",
-            };
-          });
+      logseq.App.registerCommandShortcut(
+        {
+          binding: logseq.settings!["popupShortcut"],
+        },
+        async () => {
+          const activeText = await logseq.Editor.getEditingCursorPosition();
+          const currentBlock = await logseq.Editor.getCurrentBlock();
+          const currentPage = await logseq.Editor.getCurrentPage();
+          const selectedBlocks = await logseq.Editor.getSelectedBlocks();
+          if (selectedBlocks && selectedBlocks.length > 0) {
+            updateAppState(draft => {
+              draft.selection = {
+                type: "multipleBlocksSelected",
+                blocks: selectedBlocks,
+              };
+            });
+          } else if (!activeText && !currentPage) {
+            logseq.UI.showMsg("Put cursor in block or navigate to specific page to use keyboard shortcut", "warning");
+            return;
+          } else if (activeText && currentBlock) {
+            updateAppState(draft => {
+              draft.selection = {
+                type: "singleBlockSelected",
+                block: currentBlock,
+              };
+            });
+          } else {
+            updateAppState(draft => {
+              draft.selection = {
+                type: "noBlockSelected",
+              };
+            });
+          }
+          openUI();
         }
-        openUI();
-      }
-    );
+      );
     }
   }, []);
 
@@ -191,10 +191,10 @@ const LogseqApp = () => {
 
     const openAISettings = getOpenaiSettings();
     // Set temperature of command instead of global temperature
-    if (command.temperature!=null && !Number.isNaN(command.temperature)) {
+    if (command.temperature != null && !Number.isNaN(command.temperature)) {
       openAISettings.temperature = command.temperature;
     }
-    const response = await openAIWithStream(command.prompt + inputText, openAISettings, onContent, () => {
+    const response = await geminiWithStream(command.prompt + inputText, openAISettings, onContent, () => {
     });
     if (response) {
       return response;
@@ -221,7 +221,7 @@ const LogseqApp = () => {
       logseq.Editor.insertBlock(lastBlock.uuid, result, {
         sibling: true,
       });
-    } else if (appState.selection.type === "noBlockSelected"){
+    } else if (appState.selection.type === "noBlockSelected") {
       const currentPage = await logseq.Editor.getCurrentPage();
       if (currentPage) {
         logseq.Editor.appendBlockInPage(currentPage.uuid, result);
@@ -249,7 +249,7 @@ const LogseqApp = () => {
         const blocksToRemove = remainingBlocks.map(b => logseq.Editor.removeBlock(b.uuid));
         await Promise.all(blocksToRemove);
       }
-    } else if (appState.selection.type === "noBlockSelected"){
+    } else if (appState.selection.type === "noBlockSelected") {
       const currentPage = await logseq.Editor.getCurrentPage();
       if (currentPage) {
         logseq.Editor.appendBlockInPage(currentPage.uuid, result);
