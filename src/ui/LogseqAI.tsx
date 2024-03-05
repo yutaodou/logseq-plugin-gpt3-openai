@@ -35,7 +35,7 @@ export interface ErrorState {
 
 interface LogseqAIProps {
   commands: Command[];
-  handleCommand: (command: Command, onContent: (content:string) => void) => Promise<string>;
+  handleCommand: (command: Command, onContent: (content: string) => void) => Promise<string>;
   onInsert: (text: string) => void;
   onReplace: (text: string) => void;
   onClose: () => void;
