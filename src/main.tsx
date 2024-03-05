@@ -163,10 +163,10 @@ const LogseqApp = () => {
     logseq.Editor.registerBlockContextMenuItem("gpt-page", runGptPage);
     logseq.Editor.registerSlashCommand("gpt-block", runGptBlock);
     logseq.Editor.registerBlockContextMenuItem("gpt-block", runGptBlock);
-    logseq.Editor.registerSlashCommand("dalle", runDalleBlock);
-    logseq.Editor.registerBlockContextMenuItem("dalle", runDalleBlock);
-    logseq.Editor.registerSlashCommand("whisper", runWhisper);
-    logseq.Editor.registerBlockContextMenuItem("whisper", runWhisper);
+    // logseq.Editor.registerSlashCommand("dalle", runDalleBlock);
+    // logseq.Editor.registerBlockContextMenuItem("dalle", runDalleBlock);
+    // logseq.Editor.registerSlashCommand("whisper", runWhisper);
+    // logseq.Editor.registerBlockContextMenuItem("whisper", runWhisper);
 
     if (logseq.settings!["shortcutBlock"]) {
       logseq.App.registerCommandShortcut(

@@ -14,7 +14,6 @@ export const geminiWithStream = async (
   const generationResult = await model.generateContentStream([input]);
   for await (const chunk of generationResult.stream) {
     const chunkText = chunk.text();
-    console.log(`chunk: ${chunkText}`);
     result += chunkText;
     onContent(chunkText);
   }

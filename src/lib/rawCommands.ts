@@ -1,6 +1,7 @@
 import { IHookEvent } from "@logseq/libs/dist/LSPlugin.user";
+import { geminiWithStream } from "./gemini";
 import { getAudioFile, getPageContentFromBlock, saveDalleImage } from "./logseq";
-import { OpenAIOptions, dallE, whisper, openAIWithStream } from "./openai";
+import { OpenAIOptions, dallE, whisper } from "./openai";
 import { getOpenaiSettings } from "./settings";
 
 function handleOpenAIError(e: any) {
@@ -11,7 +12,7 @@ function handleOpenAIError(e: any) {
     !e.response.data.error
   ) {
     console.error(`Unknown OpenAI error: ${e}`);
-    logseq.App.showMsg("Unknown OpenAI Error", "error");
+    logseq.UI.showMsg("Unknown OpenAI Error", "error");
     return;
   }
 
@@ -22,21 +23,21 @@ function handleOpenAIError(e: any) {
 
   if (httpStatus === 401) {
     console.error("OpenAI API key is invalid.");
-    logseq.App.showMsg("Invalid OpenAI API Key.", "error");
+    logseq.UI.showMsg("Invalid OpenAI API Key.", "error");
   } else if (httpStatus === 429) {
     if (errorType === "insufficient_quota") {
       console.error(
         "Exceeded OpenAI API quota. Or your trial is over. You can buy more at https://beta.openai.com/account/billing/overview"
       );
-      logseq.App.showMsg("OpenAI Quota Reached", "error");
+      logseq.UI.showMsg("OpenAI Quota Reached", "error");
     } else {
       console.warn(
         "OpenAI API rate limit exceeded. Try slowing down your requests."
       );
-      logseq.App.showMsg("OpenAI Rate Limited", "warning");
+      logseq.UI.showMsg("OpenAI Rate Limited", "warning");
     }
   } else {
-    logseq.App.showMsg("OpenAI Plugin Error", "error");
+    logseq.UI.showMsg("OpenAI Plugin Error", "error");
   }
   console.error(`OpenAI error: ${errorType} ${errorCode}  ${errorMessage}`);
 }
@@ -44,7 +45,7 @@ function handleOpenAIError(e: any) {
 function validateSettings(settings: OpenAIOptions) {
   if (!settings.apiKey) {
     console.error("Need API key set in settings.");
-    logseq.App.showMsg(
+    logseq.UI.showMsg(
       "Need openai API key. Add one in plugin settings.",
       "error"
     );
@@ -57,7 +58,7 @@ function validateSettings(settings: OpenAIOptions) {
     settings.dalleImageSize !== 1024
   ) {
     console.error("DALL-E image size must be 256, 512, or 1024.");
-    logseq.App.showMsg("DALL-E image size must be 256, 512, or 1024.", "error");
+    logseq.UI.showMsg("DALL-E image size must be 256, 512, or 1024.", "error");
     throw new Error("DALL-E image size must be 256, 512, or 1024.");
   }
 }
@@ -73,7 +74,7 @@ export async function runGptBlock(b: IHookEvent) {
   }
 
   if (currentBlock.content.trim().length === 0) {
-    logseq.App.showMsg("Empty Content", "warning");
+    logseq.UI.showMsg("Empty Content", "warning");
     console.warn("Blank page");
     return;
   }
@@ -88,7 +89,7 @@ export async function runGptBlock(b: IHookEvent) {
       result = openAISettings.injectPrefix + result;
     }
 
-    await openAIWithStream(currentBlock.content, openAISettings,  async (content: string) => {
+    await geminiWithStream(currentBlock.content, openAISettings,  async (content: string) => {
       result += content || "";
       if(null != insertBlock) {
          await logseq.Editor.updateBlock(insertBlock.uuid, result);
@@ -96,7 +97,7 @@ export async function runGptBlock(b: IHookEvent) {
     }, () => {});
 
     if (!result) {
-      logseq.App.showMsg("No OpenAI content" , "warning");
+      logseq.UI.showMsg("No OpenAI content" , "warning");
       return;
     }
   } catch (e: any) {
@@ -135,14 +136,14 @@ export async function runGptPage(b: IHookEvent) {
       result = openAISettings.injectPrefix + result;
     }
 
-    await openAIWithStream(pageContents, openAISettings,  async (content: string) => {
+    await geminiWithStream(pageContents, openAISettings,  async (content: string) => {
       result += content || "";
       if(null != insertBlock) {
         await logseq.Editor.updateBlock(insertBlock.uuid, result);
       }
     }, () => {});
     if (!result) {
-      logseq.App.showMsg("No OpenAI content" , "warning");
+      logseq.UI.showMsg("No OpenAI content" , "warning");
       return;
     }
 
@@ -162,7 +163,7 @@ export async function runDalleBlock(b: IHookEvent) {
   }
 
   if (currentBlock.content.trim().length === 0) {
-    logseq.App.showMsg("Empty Content", "warning");
+    logseq.UI.showMsg("Empty Content", "warning");
     console.warn("Blank block");
     return;
   }
@@ -170,7 +171,7 @@ export async function runDalleBlock(b: IHookEvent) {
   try {
     const imageURL = await dallE(currentBlock.content, openAISettings);
     if (!imageURL) {
-      logseq.App.showMsg("No Dalle results.", "warning");
+      logseq.UI.showMsg("No Dalle results.", "warning");
       return;
     }
     const imageFileName = await saveDalleImage(imageURL);
@@ -187,7 +188,7 @@ export async function runWhisper(b: IHookEvent) {
   if (currentBlock) {
     const audioFile = await getAudioFile(currentBlock.content);
     if (!audioFile) {
-      logseq.App.showMsg("No supported audio file found in block.", "warning");
+      logseq.UI.showMsg("No supported audio file found in block.", "warning");
       return;
     }
     const openAISettings = getOpenaiSettings();
