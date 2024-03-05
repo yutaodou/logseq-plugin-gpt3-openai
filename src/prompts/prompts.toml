@@ -185,72 +185,72 @@ prompt = '''
 Translate text to Chinese:
 '''
 
-[translate-to-spanish]
-name = "Translate to Spanish"
-description = "Translate text to Spanish"
-prompt = '''
-Translate text to Spanish:
-'''
+# [translate-to-spanish]
+# name = "Translate to Spanish"
+# description = "Translate text to Spanish"
+# prompt = '''
+# Translate text to Spanish:
+# '''
 
-[translate-to-german]
-name = "Translate to German"
-description = "Translate text to German"
-prompt = '''
-Translate text to German:
-'''
+# [translate-to-german]
+# name = "Translate to German"
+# description = "Translate text to German"
+# prompt = '''
+# Translate text to German:
+# '''
 
-[translate-to-french]
-name = "Translate to French"
-description = "Translate text to French"
-prompt = '''
-Translate text to French:
-'''
+# [translate-to-french]
+# name = "Translate to French"
+# description = "Translate text to French"
+# prompt = '''
+# Translate text to French:
+# '''
 
-[translate-to-italian]
-name = "Translate to Italian"
-description = "Translate text to Italian"
-prompt = '''
-Translate text to Italian:
-'''
+# [translate-to-italian]
+# name = "Translate to Italian"
+# description = "Translate text to Italian"
+# prompt = '''
+# Translate text to Italian:
+# '''
 
-[translate-to-japanese]
-name = "Translate to Japanese"
-description = "Translate text to Japanese"
-prompt = '''
-Translate text to Japanese:
-'''
+# [translate-to-japanese]
+# name = "Translate to Japanese"
+# description = "Translate text to Japanese"
+# prompt = '''
+# Translate text to Japanese:
+# '''
 
-[translate-to-korean]
-name = "Translate to Korean"
-description = "Translate text to Korean"
-prompt = '''
-Translate text to Korean:
-'''
+# [translate-to-korean]
+# name = "Translate to Korean"
+# description = "Translate text to Korean"
+# prompt = '''
+# Translate text to Korean:
+# '''
 
-[translate-to-portuguese]
-name = "Translate to Portuguese"
-description = "Translate text to Portuguese"
-prompt = '''
-Translate text to Portuguese:
-'''
+# [translate-to-portuguese]
+# name = "Translate to Portuguese"
+# description = "Translate text to Portuguese"
+# prompt = '''
+# Translate text to Portuguese:
+# '''
 
-[translate-to-russian]
-name = "Translate to Russian"
-description = "Translate text to Russian"
-prompt = '''
-Translate text to Russian:
-'''
+# [translate-to-russian]
+# name = "Translate to Russian"
+# description = "Translate text to Russian"
+# prompt = '''
+# Translate text to Russian:
+# '''
 
-[translate-to-arabic]
-name = "Translate to Arabic"
-description = "Translate text to Arabic"
-prompt = '''
-Translate text to Arabic:
-'''
+# [translate-to-arabic]
+# name = "Translate to Arabic"
+# description = "Translate text to Arabic"
+# prompt = '''
+# Translate text to Arabic:
+# '''
 
-[translate-to-hindi]
-name = "Translate to Hindi"
-description = "Translate text to Hindi"
-prompt = '''
-Translate text to Hindi:
-'''
+# [translate-to-hindi]
+# name = "Translate to Hindi"
+# description = "Translate text to Hindi"
+# prompt = '''
+# Translate text to Hindi:
+# '''

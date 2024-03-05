@@ -5,7 +5,7 @@ import ReactDOM from "react-dom/client";
 import { useImmer } from 'use-immer';
 import { geminiWithStream } from "./lib/gemini";
 import { loadBuiltInCommands, loadUserCommands } from "./lib/prompts";
-import { runDalleBlock, runGptBlock, runGptPage, runWhisper } from "./lib/rawCommands";
+import { runGptBlock, runGptPage } from "./lib/rawCommands";
 import { getOpenaiSettings, settingsSchema } from "./lib/settings";
 import { Command, LogseqAI } from "./ui/LogseqAI";
 import "./ui/style.css";
