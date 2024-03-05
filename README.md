@@ -3,8 +3,8 @@
  <img width=400px height=200px src="./docs/openai.webp" alt="Project logo"></a>
  <img width=200px height=200px src="./docs/logseq.png" alt="Project logo"></a>
 </p>
-
-<h3 align="center">logseq-plugin-gpt3-openai</h3>
+<h2 align="center">logseq-plugin-gemini</h2>
+<h3 align="center"><del>logseq-plugin-gpt3-openai</del></h3>
 
 <div align="center">
 
@@ -17,9 +17,13 @@
 
 ---
 
-<p align="center"> A plugin for GPT-3 AI assisted note taking in Logseq. Uses OpenAI's ChatGPT API `gpt-3.5-turbo` model by default.
-    <br>
+<p align="center"> A plugin for GPT-3 AI assisted note taking in Logseq. Uses <del>OpenAI's ChatGPT API `gpt-3.5-turbo`</del> Google's `gemini-pro` model by default.
 </p>
+
+## Setup
+1. Create a Gemini API Key [Google AI for developers](https://ai.google.dev/)
+2. Setup the API key in plugin settings
+3. Good to go
 
 ## Demo
 
