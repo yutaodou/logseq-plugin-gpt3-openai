@@ -16,7 +16,7 @@ export const geminiWithStream = async (
     const chunkText = chunk.text();
     console.log(`chunk: ${chunkText}`);
     result += chunkText;
-    onContent(result);
+    onContent(chunkText);
   }
   onStop();
   return result;
