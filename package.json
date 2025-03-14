@@ -29,7 +29,7 @@
     "vite-plugin-logseq": "^1.1.2"
   },
   "dependencies": {
-    "@google/generative-ai": "^0.2.1",
+    "@google/generative-ai": "^0.24.0",
     "@headlessui/react": "^1.7.7",
     "@heroicons/react": "^2.0.13",
     "@logseq/libs": "^0.0.10",
