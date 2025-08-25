@@ -20,6 +20,12 @@
   pointer-events: none;
 }
 
-#app > * {
+#app>* {
   pointer-events: auto;
+}
+
+.dialog-panel {
+  max-height: 50vh;
+  overflow-y: auto;
+  transition: height 0.2s ease;
 }

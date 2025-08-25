@@ -179,7 +179,7 @@ export const LogseqAI = ({
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
     >
       <div className="fixed inset-0 bg-black bg-opacity-25" aria-hidden="true" />
-      <Dialog.Panel className="bg-accent-dark max-w-2xl w-full mx-auto rounded-lg shadow-2xl relative flex flex-col p-4 z-10">
+    <Dialog.Panel className="dialog-panel bg-accent-dark max-w-2xl w-full mx-auto rounded-lg shadow-2xl relative flex flex-col p-4 z-10">
         <Combobox as="div" onChange={runCommand}>
           <div className="flex items-center text-lg font-medium border-b border-slate-500">
             <Combobox.Input
